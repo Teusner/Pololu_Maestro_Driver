@@ -4,8 +4,8 @@ void PololuMaestroDriver::SetPosition(unsigned int channel, unsigned short posit
     if (position > min_channel_value_ && position < max_channel_value_) {
         unsigned char command[4] = {
             0x84, static_cast<unsigned char>(channel),
-            static_cast<unsigned char>(position & 0x7F),
-            static_cast<unsigned char>((position >> 7) & 0x7F)
+            static_cast<unsigned char>(4 * position & 0x7F),
+            static_cast<unsigned char>((4 * position >> 7) & 0x7F)
         };
         serial_->write(sizeof(command), command);
     }
