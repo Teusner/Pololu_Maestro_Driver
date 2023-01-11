@@ -29,7 +29,7 @@ class PololuMaestroDriver {
         * \throws boost::system::system_error if cannot open the
         * serial device
         */
-        void SetPosition(unsigned int channel, unsigned short position);
+        void SetPosition(uint8_t channel, unsigned short position);
 
         /**
         * Get the current position on the channel
@@ -39,7 +39,7 @@ class PololuMaestroDriver {
         * \throws boost::system::system_error if cannot open the
         * serial device
         */
-        void GetPosition(unsigned int channel, unsigned short &position);
+        void GetPosition(uint8_t channel, unsigned short &position);
 
         /**
         * Set velocity on the channel
@@ -48,7 +48,7 @@ class PololuMaestroDriver {
         * \throws boost::system::system_error if cannot open the
         * serial device
         */
-        void SetVelocity(unsigned int channel, unsigned short velocity);
+        void SetVelocity(uint8_t channel, unsigned short velocity);
 
         /**
         * Set acceleration on the channel
@@ -57,7 +57,7 @@ class PololuMaestroDriver {
         * \throws boost::system::system_error if cannot open the
         * serial device
         */
-        void SetAcceleration(unsigned int channel, unsigned short acceleration);
+        void SetAcceleration(uint8_t channel, unsigned short acceleration);
 
     private:
         // Pointer to the serial stream
