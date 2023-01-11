@@ -11,7 +11,6 @@ int main() {
 
     for (unsigned int channel=1; channel<=3; ++channel) {
         std::vector<std::pair<unsigned short, std::string>> pairs = {
-            {1500, "neutral"},
             {1000, "min"},
             {2000, "max"},
             {1500, "neutral"}
