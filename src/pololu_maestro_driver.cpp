@@ -2,13 +2,13 @@
 
 #include <iostream>
 
-void PololuMaestroDriver::SetPosition(uint8_t channel, uint16_t position) {
+void PololuMaestroDriver::SetPosition(uint8_t channel, int32_t position) {
     if (position >= min_channel_value_ && position <= max_channel_value_) {
-        uint16_t quarter_us = 4 * position;
+        int32_t quarter_us = 4 * position;
         uint8_t command[4] = {
             0x84, channel,
-            (quarter_us & (uint8_t)0x7F),
-            (quarter_us >> 7) & (uint8_t)0x7F
+            (quarter_us & (int32_t)0x7F),
+            (quarter_us >> 7) & (int32_t)0x7F
         };
         serial_->write(sizeof(command), command, 1000);
     }
