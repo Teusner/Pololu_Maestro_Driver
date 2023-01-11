@@ -18,7 +18,7 @@ int main() {
         };
 
         for (const auto &p: pairs) {
-            std::cout << "Channel " << channel << " " << p.second << std::endl;
+            std::cout << "Channel " << channel << " " << p.second << "(" << p.first << ")us" << std::endl;
             driver.SetPosition(channel, p.first);
             std::this_thread::sleep_for(std::chrono::seconds(2));
         }
