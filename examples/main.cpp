@@ -10,7 +10,7 @@ int main() {
     PololuMaestroDriver driver("/dev/POLOLU", 115200);
 
     for (unsigned int channel=1; channel<=3; ++channel) {
-        std::vector<std::pair<unsigned int, std::string>> pairs = {
+        std::vector<std::pair<unsigned short, std::string>> pairs = {
             {1500, "neutral"},
             {1000, "min"},
             {2000, "max"},
