@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void PololuMaestroDriver::SetPosition(uint8_t channel, unsigned short position) {
+void PololuMaestroDriver::SetPosition(uint8_t channel, uint_8 position) {
     if (position >= min_channel_value_ && position <= max_channel_value_) {
         uint8_t command[4] = {
             0x84, channel,
