@@ -29,7 +29,7 @@ class PololuMaestroDriver {
         * \throws boost::system::system_error if cannot open the
         * serial device
         */
-        void SetPosition(uint8_t channel, uint8_t position);
+        void SetPosition(uint8_t channel, int position);
 
         /**
         * Get the current position on the channel

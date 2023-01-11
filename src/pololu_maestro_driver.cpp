@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-void PololuMaestroDriver::SetPosition(uint8_t channel, uint8_t position) {
+void PololuMaestroDriver::SetPosition(uint8_t channel, int position) {
     if (position >= min_channel_value_ && position <= max_channel_value_) {
         uint8_t command[4] = {
             0x84, channel,
-            static_cast<uint8_t>((4 * position) & 0x7F),
-            static_cast<uint8_t>(((4 * position) >> 7) & 0x7F)
+            static_cast<int>((4 * position) & 0x7F),
+            static_cast<int>(((4 * position) >> 7) & 0x7F)
         };
         serial_->write(sizeof(command), command, 1000);
     }
