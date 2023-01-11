@@ -2,7 +2,11 @@
 
 void PololuMaestroDriver::SetPosition(unsigned int channel, unsigned short position) {
     if (position > min_channel_value_ && position < max_channel_value_) {
-        unsigned char command[4] = { 0x84, static_cast<unsigned char>(channel), static_cast<unsigned char>(position & 0x7F), static_cast<unsigned char>((position >> 7) & 0x7F) };
+        unsigned char command[4] = {
+            0x84, static_cast<unsigned char>(channel),
+            static_cast<unsigned char>(position & 0x7F),
+            static_cast<unsigned char>((position >> 7) & 0x7F)
+        };
         serial_->write(sizeof(command), command);
     }
 }
@@ -20,11 +24,19 @@ void PololuMaestroDriver::GetPosition(unsigned int channel, unsigned short &posi
 }
 
 void PololuMaestroDriver::SetVelocity(unsigned int channel, unsigned short speed) {
-    unsigned char command[4] = { 0x87, static_cast<unsigned char>(channel), static_cast<unsigned char>(speed & 0x7F), static_cast<unsigned char>((speed >> 7) & 0x7F) };
+    unsigned char command[4] = {
+        0x87, static_cast<unsigned char>(channel),
+        static_cast<unsigned char>(speed & 0x7F),
+        static_cast<unsigned char>((speed >> 7) & 0x7F)
+    };
     serial_->write(sizeof(command), command);
 }
 
 void PololuMaestroDriver::SetAcceleration(unsigned int channel, unsigned short acceleration) {
-    unsigned char command[4] = { 0x89, static_cast<unsigned char>(channel), static_cast<unsigned char>(acceleration & 0x7F), static_cast<unsigned char>((acceleration >> 7) & 0x7F) };
+    unsigned char command[4] = {
+        0x89, static_cast<unsigned char>(channel),
+        static_cast<unsigned char>(acceleration & 0x7F),
+        static_cast<unsigned char>((acceleration >> 7) & 0x7F)
+    };
     serial_->write(sizeof(command), command);
 }
