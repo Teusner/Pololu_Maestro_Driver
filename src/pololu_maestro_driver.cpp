@@ -10,19 +10,19 @@ void PololuMaestroDriver::SetPosition(uint8_t channel, unsigned short position) 
             static_cast<uint8_t>(((4 * position) >> 7) & 0x7F)
         };
 	    std::cout << channel << " " <<  4*position << std::endl;
-        serial_->write(sizeof(command), command);
+        serial_->write(4, command);
     }
 }
 
 void PololuMaestroDriver::GetPosition(uint8_t channel, unsigned short &position) {
     // Requesting the position on the channel
     uint8_t command[2] = { 0x90, channel };
-    serial_->write(sizeof(command), command);
+    serial_->write(2, command);
 
     // Reading data
     unsigned int timeoutMillis = 100;
 	uint8_t response[2] = { 0x00, 0x00 };
-    serial_->read(sizeof(response), response, 100);
+    serial_->read(2, response, 100);
 	position = response[0] + 256 * response[1];
 }
 
@@ -32,7 +32,7 @@ void PololuMaestroDriver::SetVelocity(uint8_t channel, unsigned short speed) {
         static_cast<uint8_t>(speed & 0x7F),
         static_cast<uint8_t>((speed >> 7) & 0x7F)
     };
-    serial_->write(sizeof(command), command);
+    serial_->write(4, command);
 }
 
 void PololuMaestroDriver::SetAcceleration(uint8_t channel, unsigned short acceleration) {
@@ -41,5 +41,5 @@ void PololuMaestroDriver::SetAcceleration(uint8_t channel, unsigned short accele
         static_cast<uint8_t>(acceleration & 0x7F),
         static_cast<uint8_t>((acceleration >> 7) & 0x7F)
     };
-    serial_->write(sizeof(command), command);
+    serial_->write(4, command);
 }
