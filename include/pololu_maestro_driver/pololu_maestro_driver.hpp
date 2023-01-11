@@ -64,8 +64,8 @@ class PololuMaestroDriver {
         rtac::asio::Stream::Ptr serial_;
 
         // Minimal channel value in quarter of us
-        unsigned short min_channel_value_ = 3968;
+        unsigned short min_channel_value_ = 1000;
 
         // Maximal channel value in quarter of us
-        unsigned short max_channel_value_ = 8000;
+        unsigned short max_channel_value_ = 2000;
 };
