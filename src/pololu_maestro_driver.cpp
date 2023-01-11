@@ -1,12 +1,15 @@
 #include "pololu_maestro_driver/pololu_maestro_driver.hpp"
 
+#include <iostream>
+
 void PololuMaestroDriver::SetPosition(unsigned int channel, unsigned short position) {
-    if (position > min_channel_value_ && position < max_channel_value_) {
+    if (position >= min_channel_value_ && position <= max_channel_value_) {
         unsigned char command[4] = {
             0x84, static_cast<unsigned char>(channel),
             static_cast<unsigned char>(4 * position & 0x7F),
             static_cast<unsigned char>(((4 * position) >> 7) & 0x7F)
         };
+	std::cout << channel << " " <<  4*position << std::endl;
         serial_->write(sizeof(command), command);
     }
 }
