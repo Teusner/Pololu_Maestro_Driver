@@ -7,7 +7,7 @@
 
 
 int main() {
-    PololuMaestroDriver driver("/dev/POLOLU", 115200);
+    PololuMaestroDriver driver("/dev/POLOLU", 9600);
 
     for (unsigned int channel=1; channel<=3; ++channel) {
         std::vector<std::pair<unsigned short, std::string>> pairs = {
@@ -18,7 +18,7 @@ int main() {
         };
 
         for (const auto &p: pairs) {
-            std::cout << "Channel " << channel << " " << p.second << "(" << p.first << ")us" << std::endl;
+            std::cout << "Channel " << channel << " " << p.second << " (" << p.first << ")us" << std::endl;
             driver.SetPosition(channel, p.first);
             std::this_thread::sleep_for(std::chrono::seconds(2));
         }
