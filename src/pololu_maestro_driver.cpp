@@ -7,8 +7,8 @@ void PololuMaestroDriver::SetPosition(uint8_t channel, int32_t position) {
         int32_t quarter_us = 4 * position;
         uint8_t command[4] = {
             0x84, channel,
-            (quarter_us & (int32_t)0x7F),
-            (quarter_us >> 7) & (int32_t)0x7F
+            (quarter_us & 0x7F),
+            (quarter_us >> 7) & 0x7F
         };
         serial_->write(sizeof(command), command, 1000);
     }
