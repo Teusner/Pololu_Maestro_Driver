@@ -3,20 +3,23 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
+#include <vector>
 
 
 int main() {
     PololuMaestroDriver driver("/dev/POLOLU", 115200);
 
     for (unsigned int channel=1; channel<=3; ++channel) {
-        std::cout << "Channel " << channel << " min" << std::endl;
-        driver.SetPosition(channel, 1000);
-        std::this_thread::sleep_for(std::chrono::seconds(2));
-        std::cout << "Channel " << channel << " max" << std::endl;
-        driver.SetPosition(channel, 2000);
-        std::this_thread::sleep_for(std::chrono::seconds(2));
-        std::cout << "Channel " << channel << " neutral" << std::endl;
-        driver.SetPosition(channel, 1500);
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::vector<std::pair<unsigned int, std::string>> pairs = {
+            {1000, "min"},
+            {2000, "max"},
+            {1500, "neutral"}
+        };
+
+        for (const auto &p: pairs) {
+            std::cout << "Channel " << channel << " " << p.second << std::endl;
+            driver.SetPosition(channel, p.first);
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+        }
     }
 }
