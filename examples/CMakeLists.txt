@@ -1,4 +1,13 @@
-# Example
-add_executable(main main.cpp)
-target_link_libraries(main PRIVATE pololu_maestro_driver)
-target_include_directories(main PUBLIC ${POLOLU_MAESTRO_DRIVER_HEADERS})
+# List of exaples
+list(APPEND test_files
+    position.cpp
+    velocity.cpp
+)
+
+# Compile each example
+foreach(filename ${test_files})
+    get_filename_component(target_name ${filename} NAME_WE)
+    add_executable(${target_name} ${filename})
+    target_link_libraries(${target_name} PRIVATE pololu_maestro_driver)
+    target_include_directories(${target_name} PUBLIC ${POLOLU_MAESTRO_DRIVER_HEADERS})
+endforeach()

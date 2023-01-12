@@ -18,18 +18,30 @@ class PololuMaestroDriver {
         * serial device
         */
         PololuMaestroDriver(std::string port, unsigned int baud_rate) : serial_(rtac::asio::Stream::CreateSerial(port, baud_rate)) {
+            serial_->start();
             serial_->flush();
         };
 
         /**
         * Set position on the channel
-        * \param unsigned int channel: pololu maestro channel
-        * \param unsigned short position: duty cycle value in range
+        * \param uint8_t int channel: pololu maestro channel
+        * \param int32_t position: duty cycle value in range
         *  [1000; 2000] us applied on the channel
         * \throws boost::system::system_error if cannot open the
         * serial device
         */
         void SetPosition(uint8_t channel, int32_t position);
+
+        /**
+        * Set multiple positions on the channel (Mini Maestro 12, 18, and 24 only)
+        * \param unsigned int n: number of channels
+        * \param uint8_t first_channel: first channel number channel
+        * \param int32_t* positions: position to each channel starting from first_channel
+        * in range [100; 200] us applied on the consecutive channels
+        * \throws boost::system::system_error if cannot open the
+        * serial device
+        */
+        void SetMultiplePositions(uint8_t n, uint8_t first_channel, int32_t positions[]);
 
         /**
         * Get the current position on the channel

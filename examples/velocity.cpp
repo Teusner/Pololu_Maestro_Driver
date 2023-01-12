@@ -1,23 +1,24 @@
 #include "pololu_maestro_driver/pololu_maestro_driver.hpp"
 
-#include <chrono>
-#include <thread>
 #include <iostream>
-
+#include <thread>
+#include <vector>
 
 int main() {
-    PololuMaestroDriver driver("/dev/POLOLU", 115200);
+    PololuMaestroDriver driver("/tmp/ttyS0", 115200);
 
-    // Each actuators test
-    for (uint8_t channel=1; channel<=3; ++channel) {
-        std::cout << "Channel " << channel << " min" << std::endl;
-        driver.SetPosition(channel, 1000);
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        std::cout << "Channel " << channel << " max" << std::endl;
+    uint8_t channel=1;
+    std::vector<uint32_t> velocities = {
+        100, 200, 400, 800, 1000
+    };
+
+    driver.SetPosition(channel, 1000);
+    for (const auto &v: velocities) {
+        std::cout << "Velocity: " << v << std::endl;
+        driver.SetVelocity(channel, v);
         driver.SetPosition(channel, 2000);
         std::this_thread::sleep_for(std::chrono::seconds(2));
-        std::cout << "Channel " << channel << " neutral" << std::endl;
-        driver.SetPosition(channel, 1500);
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        driver.SetPosition(channel, 1000);
+        std::this_thread::sleep_for(std::chrono::seconds(2));
     }
 }
