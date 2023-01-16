@@ -5,11 +5,11 @@
 #include <vector>
 
 int main() {
-    PololuMaestroDriver driver("/tmp/ttyS0", 115200);
+    PololuMaestroDriver driver("/dev/POLOLU", 115200);
 
     uint8_t channel=1;
     std::vector<uint32_t> velocities = {
-        100, 200, 400, 800, 1000
+        5, 10, 20, 50, 80, 100
     };
 
     driver.SetPosition(channel, 1000);
