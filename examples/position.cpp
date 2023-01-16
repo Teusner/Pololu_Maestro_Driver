@@ -10,7 +10,7 @@ int main() {
     PololuMaestroDriver driver("/dev/POLOLU", 115200);
 
     for (uint8_t channel=1; channel<=3; ++channel) {
-        std::vector<uint32_t> values = {
+        std::vector<uint16_t> values = {
             1000, 2000, 1500
         };
 
