@@ -7,7 +7,7 @@
 
 
 int main() {
-    PololuMaestroDriver driver("/tmp/ttyS0", 115200);
+    PololuMaestroDriver driver("/dev/POLOLU", 115200);
 
     for (uint8_t channel=1; channel<=3; ++channel) {
         std::vector<uint32_t> values = {
@@ -17,7 +17,7 @@ int main() {
         for (const auto &v: values) {
             std::cout << "Channel " << int(channel) << "\t" << v << "us" << std::endl;
             driver.SetPosition(channel, v);
-            std::this_thread::sleep_for(std::chrono::seconds(2));
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
     }
 }
