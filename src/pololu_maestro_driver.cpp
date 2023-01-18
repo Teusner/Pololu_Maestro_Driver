@@ -11,7 +11,7 @@ void PololuMaestroDriver::SetPosition(uint8_t channel, uint16_t position) {
             static_cast<uint8_t>(quarter_us & 0x7F),
             static_cast<uint8_t>((quarter_us >> 7) & 0x7F)
         };
-        serial_->write(sizeof(command), command, 1000);
+        serial_->write(sizeof(command), command);
     }
 }
 
@@ -25,17 +25,17 @@ void PololuMaestroDriver::SetMultiplePositions(uint8_t n, uint8_t first_channel,
         command[3+2*i] = static_cast<uint8_t>(quarter_us & 0x7F);
         command[4+2*i] = static_cast<uint8_t>((quarter_us >> 7) & 0x7F);
     }
-    serial_->write(sizeof(command), command.get(), 1000);
+    serial_->write(sizeof(command), command.get());
 }
 
 void PololuMaestroDriver::GetPosition(uint8_t channel, uint16_t &position) {
     // Requesting the position on the channel
     uint8_t command[2] = { 0x90, channel };
-    serial_->write(sizeof(command), command, 1000);
+    serial_->write(sizeof(command), command);
 
     // Reading data
 	uint8_t response[2] = { 0x00, 0x00 };
-    serial_->read(sizeof(response), response, 1000);
+    serial_->read(sizeof(response), response);
 	position = response[0] + 256 * response[1];
 }
 
@@ -45,7 +45,7 @@ void PololuMaestroDriver::SetVelocity(uint8_t channel, uint16_t speed) {
         static_cast<uint8_t>(speed & 0x7F),
         static_cast<uint8_t>((speed >> 7) & 0x7F)
     };
-    serial_->write(sizeof(command), command, 1000);
+    serial_->write(sizeof(command), command);
 }
 
 void PololuMaestroDriver::SetAcceleration(uint8_t channel, uint16_t acceleration) {
@@ -54,5 +54,5 @@ void PololuMaestroDriver::SetAcceleration(uint8_t channel, uint16_t acceleration
         static_cast<uint8_t>(acceleration & 0x7F),
         static_cast<uint8_t>((acceleration >> 7) & 0x7F)
     };
-    serial_->write(sizeof(command), command, 1000);
+    serial_->write(sizeof(command), command);
 }
