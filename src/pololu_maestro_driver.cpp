@@ -37,7 +37,7 @@ void PololuMaestroDriver::GetPosition(uint8_t channel, uint16_t &position) {
     // Reading data
 	uint8_t response[2] = { 0x00, 0x00 };
     serial_->read(sizeof(response), response);
-	position = response[0] + 256 * response[1];
+	position = uint16_t((response[0] + 256 * response[1]) / 4);
 }
 
 void PololuMaestroDriver::SetVelocity(uint8_t channel, uint16_t speed) {
