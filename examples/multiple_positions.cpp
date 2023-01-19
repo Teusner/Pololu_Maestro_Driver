@@ -17,11 +17,12 @@ int main() {
     for (std::size_t i=0; i<3; ++i) {
         std::rotate(values.begin(), values.begin()+1, values.end());
         driver.SetMultiplePositions(3, 1, &values[0]);
-        std::this_thread::sleep_for(std::chrono::seconds(2));
 
         std::size_t c = 0;
         for (const auto v: values) {
             std::cout << "Channel " << ++c << " " << v << std::endl;
         }
+        
+        std::this_thread::sleep_for(std::chrono::seconds(2));
     }
 }
