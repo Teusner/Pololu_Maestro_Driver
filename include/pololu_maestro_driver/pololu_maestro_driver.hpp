@@ -3,8 +3,7 @@
 #include <string>
 #include <iostream>
 
-#include <rtac_asio/Stream.h>
-#include <rtac_asio/SerialStream.h>
+#include <libserial/SerialPort.h>
 
 
 class PololuMaestroDriver {
@@ -17,10 +16,12 @@ class PololuMaestroDriver {
         * \throws boost::system::system_error if cannot open the
         * serial device
         */
-        PololuMaestroDriver(std::string port, unsigned int baud_rate) : serial_(rtac::asio::Stream::CreateSerial(port, baud_rate)) {
-            serial_->start();
-            serial_->flush();
-        };
+        PololuMaestroDriver(std::string port, unsigned int baud_rate);
+
+        /**
+        * Destructor.
+        */
+        ~PololuMaestroDriver();
 
         /**
         * Set position on the channel
@@ -72,8 +73,8 @@ class PololuMaestroDriver {
         void SetAcceleration(uint8_t channel, uint16_t acceleration);
 
     private:
-        // Pointer to the serial stream
-        rtac::asio::Stream::Ptr serial_;
+        // Serial stream
+        LibSerial::SerialPort serial_;
 
         // Minimal channel value in quarter of us
         unsigned short min_channel_value_ = 1000;

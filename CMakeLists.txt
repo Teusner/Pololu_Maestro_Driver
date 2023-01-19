@@ -5,11 +5,9 @@ set(CMAKE_CXX_STANDARD 17 CACHE STRING "The C++ standard to use")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# rtac_asio
-include(FetchContent) # once in the project to include the module
-
-FetchContent_Declare(rtac_asio GIT_REPOSITORY https://github.com/pnarvor/rtac_asio.git GIT_TAG master)
-FetchContent_MakeAvailable(rtac_asio)
+#libserial
+find_package(PkgConfig)
+pkg_check_modules(SERIAL libserial)
 
 # Driver Include dir
 set(POLOLU_MAESTRO_DRIVER_HEADERS include)
@@ -17,7 +15,7 @@ set(POLOLU_MAESTRO_DRIVER_HEADERS include)
 # Driver
 add_library(pololu_maestro_driver src/pololu_maestro_driver.cpp)
 target_include_directories(pololu_maestro_driver PUBLIC ${POLOLU_MAESTRO_DRIVER_HEADERS})
-target_link_libraries(pololu_maestro_driver PUBLIC rtac_asio)
+target_link_libraries(pololu_maestro_driver PUBLIC ${SERIAL_LIBRARIES})
 
 # Detecting if project is included into another
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
