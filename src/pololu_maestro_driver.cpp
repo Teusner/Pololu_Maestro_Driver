@@ -31,11 +31,13 @@ void PololuMaestroDriver::SetMultiplePositions(uint8_t n, uint8_t first_channel,
 void PololuMaestroDriver::GetPosition(uint8_t channel, uint16_t &position) {
     // Requesting the position on the channel
     uint8_t command[2] = { 0x90, channel };
-    serial_->write(sizeof(command), command, 1000);
+    serial_->write(sizeof(command), command);
 
     // Reading data
 	uint8_t response[2] = { 0x00, 0x00 };
-    serial_->read(sizeof(response), response, 1000);
+    if (serial_->read(sizeof(response), response)!=sizeof(response)) {
+	    std::cout << "Error read \n";
+    } 
 	position = response[0] + 256 * response[1];
 }
 

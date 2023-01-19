@@ -20,7 +20,10 @@ class PololuMaestroDriver {
         PololuMaestroDriver(std::string port, unsigned int baud_rate) : serial_(rtac::asio::Stream::CreateSerial(port, baud_rate)) {
             serial_->start();
             serial_->flush();
-        };
+	    serial_->enable_io_dump("rx", "tx");
+	};
+	
+	auto serial() {return serial_;}
 
         /**
         * Set position on the channel
