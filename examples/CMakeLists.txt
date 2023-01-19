@@ -1,6 +1,7 @@
 # List of exaples
 list(APPEND test_files
     position.cpp
+    multiple_positions.cpp
     velocity.cpp
 )
 
