@@ -22,10 +22,6 @@ void PololuMaestroDriver::SetMultiplePositions(uint8_t n, uint8_t first_channel,
         command.push_back(static_cast<uint8_t>(quarter_us & 0x7F));
         command.push_back(static_cast<uint8_t>((quarter_us >> 7) & 0x7F));
     }
-
-    std::cout << "Command : ";
-    std::copy(std::begin(command), std::end(command), std::ostream_iterator<int>(std::cout, " "));
-    std::cout << std::endl;
     serial_->write(command.size(), &command[0]);
 }
 
